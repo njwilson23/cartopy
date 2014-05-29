@@ -1,12 +1,6 @@
 language: python
 
 python:
-  # this is not actually used. Because it would take an overly long time
-  # to build scipy we cannot use the virtual env of travis. Instead, we use the
-  # standard apt-get installation of python2.7. See
-  # https://groups.google.com/forum/#!msg/travis-ci/uJgu35XKdmI/UA0Kj1EhavAJ
-  # for the discussion topic
-  #
   - 2.7
   - 3.4
 
@@ -24,23 +18,23 @@ install:
   - CONDAPKGS=(pip numpy scipy cython)
   - conda create --yes -n test-environment python=$TRAVIS_PYTHON_VERSION ${CONDAPKGS[*]}
   - source activate test-environment
-  - ./.travis_no_output sudo /usr/bin/pip install https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.3.1/matplotlib-1.3.1.tar.gz
+  - ./.travis_no_output pip install https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.3.1/matplotlib-1.3.1.tar.gz
   # http://www.webupd8.org/2010/10/fix-nopubkey-error-for-extras-ubuntu.html
   - ./.travis_no_output sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3E5C1192
   - yes | ./.travis_no_output sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
   - ./.travis_no_output sudo apt-get update
   - ./.travis_no_output sudo apt-get install libgeos-dev libproj-dev
-  - ./.travis_no_output sudo /usr/bin/pip install --use-mirrors shapely nose pyshp mock
-  - ./.travis_no_output sudo /usr/bin/pip install pep8==1.4.5 owslib six
-  - ./.travis_no_output sudo /usr/bin/pip install --use-mirrors pillow
+  - ./.travis_no_output pip install --use-mirrors shapely nose pyshp mock
+  - ./.travis_no_output pip install pep8==1.4.5 owslib six
+  - ./.travis_no_output pip install --use-mirrors pillow
   # install cartopy in the .local directory (in lieu of using virtual env...)
-  - ./.travis_no_output sudo /usr/bin/python setup.py install
+  - ./.travis_no_output python setup.py install
 
 script:
   - mkdir ../test_folder
   - cd ../test_folder
-  - /usr/local/bin/nosetests cartopy --with-doctest -sv
+  - nosetests cartopy --with-doctest -sv
 
 after_failure:
   - source ~/virtualenv/python2.7/bin/activate
-  - /usr/bin/python -c "import cartopy.tests.mpl; print cartopy.tests.mpl.failed_images_html()"
+  - python -c "import cartopy.tests.mpl; print cartopy.tests.mpl.failed_images_html()"
