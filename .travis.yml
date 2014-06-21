@@ -43,23 +43,24 @@ install:
       conda install owslib;
     fi
   - conda install proj4
-  - conda install pyshp
   - conda install shapely
-  - conda install six
 
-  - conda install requests
   - conda install pip
-  - pip install pyepsg
-
-  - MPL_CONFIG_DIR=~/.config/matplotlib
-  - mkdir -p $MPL_CONFIG_DIR
-  - echo "backend" ":" "agg" > $MPL_CONFIG_DIR/matplotlibrc
 
   # Install some dependencies from PyPI
   # --------------
+  - pip install pyepsg
   - pip install pillow
-  - pip install pep8=1.4.5
+  - pip install pep8==1.4.5
+  - pip install pyshp
+  - pip install six
+  - pip install requests
 
+  # Set matplotlib backend
+  # ----------------------
+  - MPL_CONFIG_DIR=~/.config/matplotlib
+  - mkdir -p $MPL_CONFIG_DIR
+  - echo "backend" ":" "agg" > $MPL_CONFIG_DIR/matplotlibrc
 
   # Install cartopy
   # ---------------
