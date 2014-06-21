@@ -42,7 +42,6 @@ install:
   - if [[ "$TRAVIS_PYTHON_VERSION" == 2* ]]; then
       conda install owslib;
     fi
-  - conda install pep8=1.4.5
   - conda install proj4
   - conda install pyshp
   - conda install shapely
@@ -56,9 +55,10 @@ install:
   - mkdir -p $MPL_CONFIG_DIR
   - echo "backend" ":" "agg" > $MPL_CONFIG_DIR/matplotlibrc
 
-  # Install pillow
+  # Install some dependencies from PyPI
   # --------------
   - pip install pillow
+  - pip install pep8=1.4.5
 
 
   # Install cartopy
