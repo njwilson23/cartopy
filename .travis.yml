@@ -34,7 +34,9 @@ install:
   - conda install cython
   # The conda "pillow" build is broken, so we use "imaging" instead.
   #     - https://github.com/ContinuumIO/anaconda-issues/issues/30
-  - conda install imaging
+  # Likewise, imaging doesn't work for Python 3
+  # - conda install imaging
+  # so install pillow form PyPI below
   - conda install mock
   - conda install nose
   - conda install owslib
@@ -51,6 +53,11 @@ install:
   - MPL_CONFIG_DIR=~/.config/matplotlib
   - mkdir -p $MPL_CONFIG_DIR
   - echo "backend" ":" "agg" > $MPL_CONFIG_DIR/matplotlibrc
+
+  # Install pillow
+  # --------------
+  - pip install pillow
+
 
   # Install cartopy
   # ---------------
